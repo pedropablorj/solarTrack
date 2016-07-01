@@ -6,7 +6,8 @@
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-  <style type="text/css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+ <style type="text/css">
     body {
       font-family:'Lato', Arial;
     }
@@ -17,9 +18,9 @@
     <div style="margin-top:20px;text-align:center;width:100%;">
       Watts:  
       <span id="voltage"></span></br>
-      CO2 reducido
-      <span id="co2"></span>
-      Ahorro
+      CO2 reducido:
+      <span id="co2"></span></br>
+      Ahorro:
       <span id="ahorro"></span>
       <div style="clear:both;"></div>
       
@@ -47,7 +48,7 @@ $(document).ready(function() {
 
   ws.onmessage = function (e) {
     var recivido=JSON.parse(e.data);
-    var watt = parseInt(recivido.v) * factor;
+    var watt = parseFloat(recivido.v) * factor;
     $("#voltage").html((watt).toFixed(2));
     $('#co2').html((51 * watt).toFixed(2) + 'kg');
     $('#ahorro').html('$ ' + (51 * watt * 0.24).toFixed(2) + 'pesos');

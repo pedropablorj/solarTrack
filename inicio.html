@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+  <meta charset="utf-8" />
+  <title>WePanel</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+</head>
+<body>
+  <div class="contenido">
+    <div style="margin-top:20px;">
+      Voltage:<span id="voltage"></span>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function() {
+  console.log("Ejecutando");
+  var ws = new WebSocket("ws://52.53.217.5:8001/");
+
+  ws.onopen = function (e) {
+    console.log("Ws conectado.");
+  };
+
+  ws.onclose = function (e) {
+    console.log("Desconectado "+ e.reason);
+  };
+
+  ws.onerror = function (e) {
+    console.log("Error ");
+  };
+
+  ws.onmessage = function (e) {
+    var recivido=JSON.parse(e.data);
+    $("#voltage").html(Number(recivido.v)*19);
+  };
+});
+</script>

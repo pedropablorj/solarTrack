@@ -1,1 +1,1 @@
-# wepanel
+# Solar Cells Monitor
